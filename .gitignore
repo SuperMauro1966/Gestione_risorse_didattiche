@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Sqlite
+*.db
+
+# Drawio
+*.drawio.bkp
