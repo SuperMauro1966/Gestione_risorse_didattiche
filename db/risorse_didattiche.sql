@@ -54,7 +54,34 @@ CREATE TABLE IF NOT EXISTS "Risorse_fisiche" (
 CREATE TABLE IF NOT EXISTS "Studenti-corsi-facoltativi" (
 	"id_corso"	INTEGER,
 	"matricola"	INTEGER,
-	PRIMARY KEY("id_corso","matricola"),
-	FOREIGN KEY("id_corso") REFERENCES "Corsi"("ID_corso")
+	FOREIGN KEY("id_corso") REFERENCES "Corsi"("ID_corso"),
+	PRIMARY KEY("id_corso","matricola")
+);
+CREATE TABLE IF NOT EXISTS "studenti_corsi" (
+	"id_corso "	INTEGER,
+	"matricola"	INTEGER,
+	"classe"	varchar(5) NOT NULL,
+	"indirizzo"	varchar(15) NOT NULL,
+	FOREIGN KEY("id_corso ") REFERENCES "Corsi"("ID_corso"),
+	FOREIGN KEY("matricola") REFERENCES "Studenti"("Matricola"),
+	PRIMARY KEY("id_corso ","matricola")
+);
+CREATE TABLE IF NOT EXISTS "argomenti " (
+	"ID_argomenti "	INTEGER,
+	"nome"	varchar(50),
+	"id_corso"	INTEGER,
+	PRIMARY KEY("ID_argomenti ")
+);
+CREATE TABLE IF NOT EXISTS "tutor_argomenti" (
+	"id_argomenti"	INTEGER,
+	"id_tutor"	INTEGER,
+	FOREIGN KEY("id_argomenti") REFERENCES "argomenti "("ID_argomenti "),
+	PRIMARY KEY("id_argomenti","id_tutor")
+);
+CREATE TABLE IF NOT EXISTS "risorse_argomenti" (
+	"id_risorse"	INTEGER,
+	"id_tutor"	INTEGER,
+	FOREIGN KEY("id_risorse") REFERENCES "Elenco_risorse_disponibili"("ID_risorse"),
+	PRIMARY KEY("id_risorse","id_tutor")
 );
 COMMIT;
