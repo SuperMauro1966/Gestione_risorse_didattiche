@@ -36,8 +36,12 @@
 
 # Drawio
 *.drawio.bkp
+*.drawio.dtmp
+
+# DB
+*.db-journal
+*.db
 
 # code block editor
 *.depend
 *.layout
-
