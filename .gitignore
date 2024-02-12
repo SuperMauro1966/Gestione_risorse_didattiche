@@ -36,3 +36,8 @@
 
 # Drawio
 *.drawio.bkp
+
+# code block editor
+*.depend
+*.layout
+
