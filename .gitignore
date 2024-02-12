@@ -38,4 +38,6 @@
 *.drawio.bkp
 *.drawio.dtmp
 
-# Msword
+# DB
+*.db-journal
+*.db
