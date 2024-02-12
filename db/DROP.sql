@@ -1,3 +1,11 @@
-DROP TABLE IF EXIST "tb_Corsi";
-DROP INDEX IF EXISTS "idx_tb_Corsi_Nome";
-DROP VIEW IF EXISTS "vw_Corsi_Nome";
+DROP TABLE IF EXISTS "tb_corso";
+DROP TABLE IF EXISTS "tb_elenco_risorse_disponibili";
+DROP TABLE IF EXISTS "tb_risorsa_digitale";
+DROP TABLE IF EXISTS "tb_risorsa_fisica";
+DROP TABLE IF EXISTS "tb_studente";
+DROP TABLE IF EXISTS "tb_tutor";
+DROP TABLE IF EXISTS "tb_argomento";
+DROP TABLE IF EXISTS "tb_studente_corso_facoltativo";
+DROP TABLE IF EXISTS "tb_studente_corso";
+DROP TABLE IF EXISTS "tb_tutor_argomento";
+DROP TABLE IF EXISTS "tb_risorsa_argomento";
