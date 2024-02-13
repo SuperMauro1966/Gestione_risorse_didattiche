@@ -87,7 +87,6 @@ CREATE TABLE IF NOT EXISTS "tb_tutor" (
 INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',1),
  (2,'ProvaCorso2',2),
  (3,'ProvaCorso3',3);
-<<<<<<< HEAD
 INSERT INTO "tb_studente_corso" ("id_corso ","matricola","classe","indirizzo") VALUES (1,1,'classe1','indirizzo1'),
  (2,2,'classe2','indirizzo2'),
  (3,3,'classe3','indirizzo3');
@@ -101,7 +100,6 @@ INSERT INTO "tb_studente" ("Matricola","Nome","Cognome","mail_istituzionale","Da
 INSERT INTO "tb_tutor" ("ID_tutor","Nome","Cognome","mail_interna","Password","Admin","Attivo","id_risorse") VALUES (NULL,'Tutor1','Cognome1','mail1','password1','true','true',1),
  (NULL,'Tutor2','Cognome2','mail2','password2','false','true',2),
  (NULL,'Tutor3','Cognome3','mail3','password3','false ','false',3);
-=======
 INSERT INTO "tb_elenco_risorse_disponibili" ("ID_risorse","Tipo ","matricola","id_tutor") VALUES (1,'tipo1',1,1),
  (2,'tipo2',2,2),
  (3,'tipo3',3,3);
@@ -117,5 +115,4 @@ INSERT INTO "tb_risorsa_digitale" ("ID_digitale","Nome","Link","Approvata","id_r
 INSERT INTO "tb_risorsa_fisica" ("ID_fisiche","Nome","Ubicazione","Approvata","Tipo","id_risorse") VALUES (1,'nome1','ubicazione1','true','tipo1',1),
  (2,'nome2','ubicazione2','false','tipo2',2),
  (3,'nome3','ubicazione3','true','tipo3',3);
->>>>>>> 0bad4e38a6e0e380f715d75626bdd5fbc02eada6
 COMMIT;
