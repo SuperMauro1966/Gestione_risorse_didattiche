@@ -1,17 +1,4 @@
 BEGIN TRANSACTION;
-
-DROP TABLE IF EXISTS "tb_corso";
-DROP TABLE IF EXISTS "tb_elenco_risorse_disponibili";
-DROP TABLE IF EXISTS "tb_risorsa_digitale";
-DROP TABLE IF EXISTS "tb_risorsa_fisica";
-DROP TABLE IF EXISTS "tb_studente";
-DROP TABLE IF EXISTS "tb_tutor";
-DROP TABLE IF EXISTS "tb_argomento";
-DROP TABLE IF EXISTS "tb_studente_corso_facoltativo";
-DROP TABLE IF EXISTS "tb_studente_corso";
-DROP TABLE IF EXISTS "tb_tutor_argomento";
-DROP TABLE IF EXISTS "tb_risorsa_argomento";
-
 CREATE TABLE IF NOT EXISTS "tb_corso" (
 	"ID_corso"	INTEGER,
 	"Nome"	VARCHAR(30),
@@ -100,4 +87,19 @@ CREATE TABLE IF NOT EXISTS "tb_tutor" (
 INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',1),
  (2,'ProvaCorso2',2),
  (3,'ProvaCorso3',3);
+INSERT INTO "tb_elenco_risorse_disponibili" ("ID_risorse","Tipo ","matricola","id_tutor") VALUES (1,'tipo1',1,1),
+ (2,'tipo2',2,2),
+ (3,'tipo3',3,3);
+INSERT INTO "tb_argomento" ("ID_argomenti ","nome","id_corso") VALUES (1,'argomento1',1),
+ (2,'argomento2',2),
+ (3,'argomento3',3);
+INSERT INTO "tb_risorsa_argomento" ("id_risorse","id_tutor") VALUES (1,1),
+ (2,2),
+ (3,3);
+INSERT INTO "tb_risorsa_digitale" ("ID_digitale","Nome","Link","Approvata","id_risorse") VALUES (1,'nome1','link1','true',1),
+ (2,'nome2','link2','false',2),
+ (3,'nome3','link3','true',3);
+INSERT INTO "tb_risorsa_fisica" ("ID_fisiche","Nome","Ubicazione","Approvata","Tipo","id_risorse") VALUES (1,'nome1','ubicazione1','true','tipo1',1),
+ (2,'nome2','ubicazione2','false','tipo2',2),
+ (3,'nome3','ubicazione3','true','tipo3',3);
 COMMIT;
