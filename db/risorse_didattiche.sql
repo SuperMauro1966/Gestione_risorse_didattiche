@@ -12,28 +12,6 @@ CREATE TABLE IF NOT EXISTS "tb_elenco_risorse_disponibili" (
 	"id_tutor"	INTEGER,
 	PRIMARY KEY("ID_risorse")
 );
-CREATE TABLE IF NOT EXISTS "tb_Studente" (
-	"Matricola"	INTEGER,
-	"Nome"	VARCHAR(50) NOT NULL,
-	"Cognome"	VARCHAR(50) NOT NULL,
-	"mail_istituzionale"	VARCHAR(30),
-	"Data_nascita"	BLOB,
-	"Anno_corso"	INTEGER,
-	"Lingua_scelta"	VARCHAR(20),
-	"Password"	VARCHAR(8),
-	PRIMARY KEY("Matricola")
-);
-CREATE TABLE IF NOT EXISTS "tb_Tutor" (
-	"ID_tutor"	INTEGER,
-	"Nome"	VARCHAR(50) NOT NULL,
-	"Cognome"	VARCHAR(50) NOT NULL,
-	"mail_interna"	VARCHAR(30) NOT NULL,
-	"Password"	VARCHAR(8) NOT NULL,
-	"Admin"	BOOL NOT NULL,
-	"Attivo"	BOOL NOT NULL,
-	"id_risorse"	INTEGER,
-	PRIMARY KEY("ID_tutor","id_risorse")
-);
 CREATE TABLE IF NOT EXISTS "tb_argomento" (
 	"ID_argomenti "	INTEGER,
 	"nome"	varchar(50),
@@ -45,8 +23,8 @@ CREATE TABLE IF NOT EXISTS "tb_studente_corso" (
 	"matricola"	INTEGER,
 	"classe"	varchar(5) NOT NULL,
 	"indirizzo"	varchar(15) NOT NULL,
-	FOREIGN KEY("matricola") REFERENCES "tb_Studente"("Matricola"),
 	FOREIGN KEY("id_corso ") REFERENCES "tb_corso"("ID_corso"),
+	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
 	PRIMARY KEY("id_corso ","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_tutor_argomento" (
@@ -84,4 +62,29 @@ CREATE TABLE IF NOT EXISTS "tb_risorsa_fisica" (
 	"id_risorse"	INTEGER,
 	PRIMARY KEY("ID_fisiche")
 );
+CREATE TABLE IF NOT EXISTS "tb_studente" (
+	"Matricola"	INTEGER,
+	"Nome"	VARCHAR(50) NOT NULL,
+	"Cognome"	VARCHAR(50) NOT NULL,
+	"mail_istituzionale"	VARCHAR(30),
+	"Data_nascita"	BLOB,
+	"Anno_corso"	INTEGER,
+	"Lingua_scelta"	VARCHAR(20),
+	"Password"	VARCHAR(8),
+	PRIMARY KEY("Matricola")
+);
+CREATE TABLE IF NOT EXISTS "tb_tutor" (
+	"ID_tutor"	INTEGER,
+	"Nome"	VARCHAR(50) NOT NULL,
+	"Cognome"	VARCHAR(50) NOT NULL,
+	"mail_interna"	VARCHAR(30) NOT NULL,
+	"Password"	VARCHAR(8) NOT NULL,
+	"Admin"	BOOL NOT NULL,
+	"Attivo"	BOOL NOT NULL,
+	"id_risorse"	INTEGER,
+	PRIMARY KEY("ID_tutor","id_risorse")
+);
+INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',1),
+ (2,'ProvaCorso2',2),
+ (3,'ProvaCorso3',3);
 COMMIT;
