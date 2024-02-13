@@ -1,17 +1,4 @@
 BEGIN TRANSACTION;
-
-DROP TABLE IF EXISTS "tb_corso";
-DROP TABLE IF EXISTS "tb_elenco_risorse_disponibili";
-DROP TABLE IF EXISTS "tb_argomento";
-DROP TABLE IF EXISTS "tb_risorsa_digitale";
-DROP TABLE IF EXISTS "tb_risorsa_fisica";
-DROP TABLE IF EXISTS "tb_studente";
-DROP TABLE IF EXISTS "tb_tutor";
-DROP TABLE IF EXISTS "tb_studente_corso_facoltativo";
-DROP TABLE IF EXISTS "tb_studente_corso";
-DROP TABLE IF EXISTS "tb_tutor_argomento";
-DROP TABLE IF EXISTS "tb_risorsa_argomento";
-
 CREATE TABLE IF NOT EXISTS "tb_corso" (
 	"ID_corso"	INTEGER,
 	"Nome"	VARCHAR(30),
@@ -36,15 +23,15 @@ CREATE TABLE IF NOT EXISTS "tb_studente_corso" (
 	"matricola"	INTEGER,
 	"classe"	varchar(5) NOT NULL,
 	"indirizzo"	varchar(15) NOT NULL,
-	PRIMARY KEY("id_corso ","matricola"),
+	FOREIGN KEY("id_corso ") REFERENCES "tb_corso"("ID_corso"),
 	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
-	FOREIGN KEY("id_corso ") REFERENCES "tb_corso"("ID_corso")
+	PRIMARY KEY("id_corso ","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_tutor_argomento" (
 	"id_argomenti"	INTEGER,
 	"id_tutor"	INTEGER,
-	PRIMARY KEY("id_argomenti","id_tutor"),
-	FOREIGN KEY("id_argomenti") REFERENCES "tb_argomento"("ID_argomenti ")
+	FOREIGN KEY("id_argomenti") REFERENCES "tb_argomento"("ID_argomenti "),
+	PRIMARY KEY("id_argomenti","id_tutor")
 );
 CREATE TABLE IF NOT EXISTS "tb_studente_corso_facoltativo" (
 	"id_corso"	INTEGER,
@@ -97,4 +84,7 @@ CREATE TABLE IF NOT EXISTS "tb_tutor" (
 	"id_risorse"	INTEGER,
 	PRIMARY KEY("ID_tutor","id_risorse")
 );
+INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',1),
+ (2,'ProvaCorso2',2),
+ (3,'ProvaCorso3',3);
 COMMIT;
