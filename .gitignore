@@ -42,7 +42,8 @@
 *.db-journal
 *.db
 
-# Code Block editor
-*.depend
+# Code block editor
 *.layout
+*.depend
+
 
