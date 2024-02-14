@@ -1,4 +1,17 @@
 BEGIN TRANSACTION;
+
+DROP TABLE IF EXISTS "tb_corso";
+DROP TABLE IF EXISTS "tb_elenco_risorse_disponibili";
+DROP TABLE IF EXISTS "tb_risorsa_digitale";
+DROP TABLE IF EXISTS "tb_risorsa_fisica";
+DROP TABLE IF EXISTS "tb_studente";
+DROP TABLE IF EXISTS "tb_tutor";
+DROP TABLE IF EXISTS "tb_argomento";
+DROP TABLE IF EXISTS "tb_studente_corso_facoltativo";
+DROP TABLE IF EXISTS "tb_studente_corso";
+DROP TABLE IF EXISTS "tb_tutor_argomento";
+DROP TABLE IF EXISTS "tb_risorsa_argomento";
+
 CREATE TABLE IF NOT EXISTS "tb_corso" (
 	"ID_corso"	INTEGER,
 	"Nome"	VARCHAR(30),
@@ -117,4 +130,5 @@ INSERT INTO "tb_studente" ("Matricola","Nome","Cognome","mail_istituzionale","Da
 INSERT INTO "tb_tutor" ("ID_tutor","Nome","Cognome","mail_interna","Password","Admin","Attivo","id_risorse") VALUES (NULL,'Tutor1','Cognome1','mail1','password1','true','true',1),
  (NULL,'Tutor2','Cognome2','mail2','password2','false','true',2),
  (NULL,'Tutor3','Cognome3','mail3','password3','false ','false',3);
+
 COMMIT;
