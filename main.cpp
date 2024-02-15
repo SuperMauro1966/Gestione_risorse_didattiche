@@ -1,6 +1,12 @@
 #include <iostream>
 #include <sqlite3.h>
 #define P 3.14
+#define MAX_SIZE 100
+
+int prova_array [MAX_SIZE];
+const int DIMENSIONE = 100;
+int prova_array2 [DIMENSIONE];
+
 
 using namespace std;
 struct dato_composito {
@@ -129,7 +135,11 @@ int testa_db_elenca_argomenti () {
 
     if (rc != SQLITE_OK) {
         cout << "Errore nella valorizzazione del parametro della query" << endl;
+        rc = sqlite3_finalize(pStmt);
+        sqlite3_close (db);
+        return (1);
 
+    }
     rc = sqlite3_step(pStmt);
     cout << "rc "<< rc << endl;
 
@@ -150,7 +160,6 @@ int testa_db_elenca_argomenti () {
     rc = sqlite3_finalize(pStmt);
     sqlite3_close (db);
     return (0);
-}
 
 }
 
