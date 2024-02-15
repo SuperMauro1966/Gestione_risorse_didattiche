@@ -114,16 +114,15 @@ int testa_db_elenco_argomenti () {
    }
    cout << "aperto database" << endl;
 
-   const char *selezione_corso = "SELECT tb_argomento.nome, tb_studente_corso_facoltativo.matricola, tb_studente_corso_facoltativo.id_corso FROM tb_argomento INNER JOIN tb_corso ON tb_argomento.id_corso = tb_corso.ID_corso INNER JOIN tb_studente_corso_facoltativo ON tb_corso.ID_corso = tb_studente_corso_facoltativo.id_corso INNER JOIN tb_studente ON tb_studente_corso_facoltativo.matricola = tb_studente.Matricola;";
+   const char *selezione_corso = "SELECT tb_argomento.ID_argomenti, tb_argomento.nome As Nome_argomento, FROM tb_argomento INNER JOIN tb_corso ON tb_argomento.id_corso = tb_corso.ID_corso INNER JOIN tb_studente_corso_facoltativo ON tb_corso.ID_corso = tb_studente_corso_facoltativo.id_corso INNER JOIN tb_studente ON tb_studente_corso_facoltativo.matricola = tb_studente.Matricola;";
    sqlite3_stmt *pstmt;
    rc = sqlite3_prepare_v2(db, selezione_corso, -1, &pstmt, NULL);
 
    rc = sqlite3_step (pstmt);
    while (rc == SQLITE_ROW){
     cout << "Recuperata riga di dati" << endl;
+    cout << sqlite3_column_int (pstmt, 1) << endl;
     cout << sqlite3_column_text (pstmt, 0) << endl;
-    cout << sqlite3_column_int (pstmt, 1) << endl;
-    cout << sqlite3_column_int (pstmt, 1) << endl;
     rc = sqlite3_step (pstmt);
    }
 
