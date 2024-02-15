@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS "tb_studente_corso" (
 	"matricola"	INTEGER,
 	"classe"	varchar(5) NOT NULL,
 	"indirizzo"	varchar(15) NOT NULL,
-	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
 	FOREIGN KEY("id_corso") REFERENCES "tb_corso"("ID_corso"),
+	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
 	PRIMARY KEY("id_corso","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_tutor_argomento" (
@@ -147,8 +147,5 @@ CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_facoltativo_id_corso" ON "tb_s
 );
 CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_facoltativo_matricola" ON "tb_studente_corso_facoltativo" (
 	"matricola"
-);
-CREATE INDEX IF NOT EXISTS "idx_tb_tutor_id_risorse" ON "tb_tutor" (
-	"id_risorse"
 );
 COMMIT;
