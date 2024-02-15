@@ -111,23 +111,32 @@ int testa_db_elenca_argomenti () {
         return (1);
     }
     cout << "aperto database" << endl;
-    const char *selezione_corso = "SELECT tb_argomento.nome, tb_studente_corso_facoltativo.matricola, tb_studente_corso_facoltativo.id_corso FROM tb_argomento INNER JOIN tb_corso ON tb_argomento.id_corso = tb_corso.ID_corso INNER JOIN tb_studente_corso_facoltativo ON tb_corso.ID_corso = tb_studente_corso_facoltativo.id_corso INNER JOIN tb_studente ON tb_studente_corso_facoltativo.matricola = tb_studente.Matricola;";
+    const char *selezione_corso = "SELECT tb_argomento.ID_argomenti, tb_argomento.nome AS Nome_argomento FROM tb_argomento INNER JOIN tb_corso ON tb_argomento.id_corso = tb_corso.ID_corso INNER JOIN tb_studente_corso_facoltativo ON tb_corso.ID_corso = tb_studente_corso_facoltativo.id_corso INNER JOIN tb_studente ON tb_studente_corso_facoltativo.matricola = tb_studente.Matricola WHERE tb_studente.Matricola = :MATRICOLA;";
     sqlite3_stmt *pStmt;
     rc = sqlite3_prepare_v2(db, selezione_corso, -1, &pStmt, NULL);
 
-
-     if ( rc != SQLITE_OK) {
+    if ( rc != SQLITE_OK) {
         cout << "Impossibile creare statement" << endl;
         sqlite3_close (db);
         return (1);
     }
 
+    pos_par = sqlite3_bind_parameter_index(pStmt, ":MATRICOLA");
+    cout << "Recuperata posizione parametro " << pos_par << endl;
+
+    rc = sqlite3_bind_int(pStmt, pos_par, 1);
+
+
+    if (rc != SQLITE_OK) {
+        cout << "Errore nella valorizzazione del parametro della query" << endl;
+
     rc = sqlite3_step(pStmt);
+    cout << "rc "<< rc << endl;
+
     while (rc == SQLITE_ROW) {
         cout << "Recuperata riga di dati" << endl;
-        cout << sqlite3_column_text (pStmt, 0) << endl;
-        cout << sqlite3_column_int (pStmt, 1) << endl;
-        cout << sqlite3_column_int (pStmt, 2) << endl;
+        cout << sqlite3_column_int (pStmt, 0) << endl;
+        cout << sqlite3_column_text (pStmt, 1) << endl;
         rc = sqlite3_step(pStmt);
     }
     if (rc == SQLITE_DONE) {
@@ -143,7 +152,7 @@ int testa_db_elenca_argomenti () {
     return (0);
 }
 
-
+}
 
 
 int g (int b[], int size){
@@ -198,7 +207,8 @@ int main()
 
     cout << "Valore di a dopo la chiamata: " << a << endl;*/
 
-    testa_db ();
+     //  testa_db ();
+     testa_db_elenca_argomenti ();
 
     return 0;
 }
