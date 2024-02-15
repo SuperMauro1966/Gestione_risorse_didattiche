@@ -1,4 +1,17 @@
 BEGIN TRANSACTION;
+
+DROP TABLE IF EXISTS "tb_corso";
+DROP TABLE IF EXISTS "tb_elenco_risorse_disponibili";
+DROP TABLE IF EXISTS "tb_risorsa_digitale";
+DROP TABLE IF EXISTS "tb_risorsa_fisica";
+DROP TABLE IF EXISTS "tb_studente";
+DROP TABLE IF EXISTS "tb_tutor";
+DROP TABLE IF EXISTS "tb_argomento";
+DROP TABLE IF EXISTS "tb_studente_corso_facoltativo";
+DROP TABLE IF EXISTS "tb_studente_corso";
+DROP TABLE IF EXISTS "tb_tutor_argomento";
+DROP TABLE IF EXISTS "tb_risorsa_argomento";
+
 CREATE TABLE IF NOT EXISTS "tb_corso" (
 	"ID_corso"	INTEGER,
 	"Nome"	VARCHAR(30),
@@ -13,37 +26,37 @@ CREATE TABLE IF NOT EXISTS "tb_elenco_risorse_disponibili" (
 	PRIMARY KEY("ID_risorse")
 );
 CREATE TABLE IF NOT EXISTS "tb_argomento" (
-	"ID_argomenti "	INTEGER,
+	"ID_argomenti"	INTEGER,
 	"nome"	varchar(50),
 	"id_corso"	INTEGER,
-	PRIMARY KEY("ID_argomenti ")
+	PRIMARY KEY("ID_argomenti")
 );
 CREATE TABLE IF NOT EXISTS "tb_studente_corso" (
-	"id_corso "	INTEGER,
+	"id_corso"	INTEGER,
 	"matricola"	INTEGER,
 	"classe"	varchar(5) NOT NULL,
 	"indirizzo"	varchar(15) NOT NULL,
-	PRIMARY KEY("id_corso ","matricola"),
 	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
-	FOREIGN KEY("id_corso ") REFERENCES "tb_corso"("ID_corso")
+	FOREIGN KEY("id_corso") REFERENCES "tb_corso"("ID_corso"),
+	PRIMARY KEY("id_corso","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_tutor_argomento" (
 	"id_argomenti"	INTEGER,
 	"id_tutor"	INTEGER,
-	PRIMARY KEY("id_argomenti","id_tutor"),
-	FOREIGN KEY("id_argomenti") REFERENCES "tb_argomento"("ID_argomenti ")
+	FOREIGN KEY("id_argomenti") REFERENCES "tb_argomento"("ID_argomenti"),
+	PRIMARY KEY("id_argomenti","id_tutor")
 );
 CREATE TABLE IF NOT EXISTS "tb_studente_corso_facoltativo" (
 	"id_corso"	INTEGER,
 	"matricola"	INTEGER,
-	PRIMARY KEY("id_corso","matricola"),
-	FOREIGN KEY("id_corso") REFERENCES "tb_corso"("ID_corso")
+	FOREIGN KEY("id_corso") REFERENCES "tb_corso"("ID_corso"),
+	PRIMARY KEY("id_corso","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_risorsa_argomento" (
 	"id_risorse"	INTEGER,
 	"id_tutor"	INTEGER,
-	PRIMARY KEY("id_risorse","id_tutor"),
-	FOREIGN KEY("id_risorse") REFERENCES "tb_elenco_risorse_disponibili"("ID_risorse")
+	FOREIGN KEY("id_risorse") REFERENCES "tb_elenco_risorse_disponibili"("ID_risorse"),
+	PRIMARY KEY("id_risorse","id_tutor")
 );
 CREATE TABLE IF NOT EXISTS "tb_risorsa_digitale" (
 	"ID_digitale"	INTEGER,
@@ -90,10 +103,10 @@ INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',
 INSERT INTO "tb_elenco_risorse_disponibili" ("ID_risorse","Tipo ","matricola","id_tutor") VALUES (1,'tipo1',1,1),
  (2,'tipo2',2,2),
  (3,'tipo3',3,3);
-INSERT INTO "tb_argomento" ("ID_argomenti ","nome","id_corso") VALUES (1,'argomento1',1),
+INSERT INTO "tb_argomento" ("ID_argomenti","nome","id_corso") VALUES (1,'argomento1',1),
  (2,'argomento2',2),
  (3,'argomento3',3);
-INSERT INTO "tb_studente_corso" ("id_corso ","matricola","classe","indirizzo") VALUES (1,1,'classe1','indirizzo1'),
+INSERT INTO "tb_studente_corso" ("id_corso","matricola","classe","indirizzo") VALUES (1,1,'classe1','indirizzo1'),
  (2,2,'classe2','indirizzo2'),
  (3,3,'classe3','indirizzo3');
 INSERT INTO "tb_tutor_argomento" ("id_argomenti","id_tutor") VALUES (1,1),
