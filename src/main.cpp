@@ -8,6 +8,7 @@ int StampaMessaggioBenvenuto () {
 }
 
 void MostraMenu (){
+    cout << "++Menu principale**" << endl;
 }
 
 int main()
@@ -20,6 +21,9 @@ int main()
 
         if (autorizzato) {
             MostraMenu ();
+        }
+        else {
+            cout << "Utente non autorizzato" << endl;
         }
     }
     return 0;
