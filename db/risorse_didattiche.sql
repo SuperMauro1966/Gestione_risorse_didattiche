@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS "tb_studente_corso";
 DROP TABLE IF EXISTS "tb_tutor_argomento";
 DROP TABLE IF EXISTS "tb_risorsa_argomento";
 
+-- TABLE
+
 CREATE TABLE IF NOT EXISTS "tb_corso" (
 	"ID_corso"	INTEGER,
 	"Nome"	VARCHAR(30),
@@ -36,8 +38,8 @@ CREATE TABLE IF NOT EXISTS "tb_studente_corso" (
 	"matricola"	INTEGER,
 	"classe"	varchar(5) NOT NULL,
 	"indirizzo"	varchar(15) NOT NULL,
-	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
 	FOREIGN KEY("id_corso") REFERENCES "tb_corso"("ID_corso"),
+	FOREIGN KEY("matricola") REFERENCES "tb_studente"("Matricola"),
 	PRIMARY KEY("id_corso","matricola")
 );
 CREATE TABLE IF NOT EXISTS "tb_tutor_argomento" (
@@ -97,6 +99,30 @@ CREATE TABLE IF NOT EXISTS "tb_tutor" (
 	"id_risorse"	INTEGER,
 	PRIMARY KEY("ID_tutor","id_risorse")
 );
+
+-- INDEX
+
+CREATE INDEX IF NOT EXISTS "idx_tb_argomento_id_corso" ON "tb_argomento" (
+	"id_corso"
+);
+CREATE INDEX IF NOT EXISTS "idx_tb_elenco_risorse_disponibili_id_tutor" ON "tb_elenco_risorse_disponibili" (
+	"id_tutor"
+);
+CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_id_corso" ON "tb_studente_corso" (
+	"id_corso"
+);
+CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_matricola" ON "tb_studente_corso" (
+	"matricola"
+);
+CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_facoltativo_id_corso" ON "tb_studente_corso_facoltativo" (
+	"id_corso"
+);
+CREATE INDEX IF NOT EXISTS "idx_tb_studente_corso_facoltativo_matricola" ON "tb_studente_corso_facoltativo" (
+	"matricola"
+);
+
+-- INSERT
+
 INSERT INTO "tb_corso" ("ID_corso","Nome","Anno_corso") VALUES (1,'ProvaCorso1',1),
  (2,'ProvaCorso2',2),
  (3,'ProvaCorso3',3);
@@ -130,4 +156,5 @@ INSERT INTO "tb_studente" ("Matricola","Nome","Cognome","mail_istituzionale","Da
 INSERT INTO "tb_tutor" ("ID_tutor","Nome","Cognome","mail_interna","Password","Admin","Attivo","id_risorse") VALUES (1,'Tutor1','Cognome1','mail1','password1','true','true',1),
  (2,'Tutor2','Cognome2','mail2','password2','false','true',2),
  (3,'Tutor3','Cognome3','mail3','password3','false ','false',3);
+
 COMMIT;
