@@ -30,6 +30,8 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
             std :: cout << "Utente verificato" << std :: endl;
             val = true;
             break;
+        } else {
+            std :: cout << "Email o password errati" << std :: endl;
         }
         rc = sqlite3_step (pstmt);
     }
