@@ -1,9 +1,11 @@
+#include <string>
+
 
 bool AutorizzazioneUtente () {
     // Richiedi email e la password
     // Se tutor/admin o Studente ritorna ok
-    string email ("");
-    string password ("");
+    std :: string email ("");
+    std :: string password ("");
     cout << "Inserire email" << endl;
     cin >> email;
     cout << "Inserisci password" << endl;
