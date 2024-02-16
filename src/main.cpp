@@ -21,28 +21,6 @@ bool AutorizzazioneUtente () {
     return true;
 }
 
-bool RuoloStudente () {
-    char ruolo;
-    cout << "Se studente selezionare s" << endl;
-    cin >> ruolo;
-
-    if (ruolo == 's' || ruolo == 'S')
-        return true;
-    else
-        return false;
-}
-
-bool RuoloTutor () {
-    char ruolo;
-    cout << "Se tutor selezionare t" << endl;
-    cin >> ruolo;
-
-    if (ruolo == 't' || ruolo == 'T')
-        return true;
-    else
-        return false;
-}
-
 void MostraMenu (){
 }
 
