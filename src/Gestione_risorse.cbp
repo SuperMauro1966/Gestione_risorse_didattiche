@@ -13,7 +13,12 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../sqlite3-library" />
 				</Compiler>
+				<Linker>
+					<Add library="../sqlite3-library/libsqlite3.a" />
+					<Add directory="../sqlite3-library" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Gestione_risorse_didattiche" prefix_auto="1" extension_auto="1" />
