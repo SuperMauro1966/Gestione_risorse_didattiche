@@ -5,7 +5,7 @@
 bool VerificaTutorAdmin (std :: string email, std :: string password) {
     sqlite3 *db;
     int rc;
-    rc = sqlite3_open("../db/risorse_didattiche.db", &db);
+    rc = sqlite3_open("./db/risorse_didattiche.db", &db);
     if (rc != SQLITE_OK){
         std :: cerr << "Impossibile aprire database" << std :: endl;
         sqlite3_close(db);
@@ -45,7 +45,7 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
 
 bool VerificaStudente (std :: string email, std :: string password) {
     sqlite3* db;
-    int rc = sqlite3_open ("../db/risorse_didattiche.db", &db);
+    int rc = sqlite3_open ("./db/risorse_didattiche.db", &db);
 
     if (rc!= SQLITE_OK) {
         std :: cerr << "Errore apertura database" << std :: endl;
