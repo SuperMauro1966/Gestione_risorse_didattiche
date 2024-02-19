@@ -1,17 +1,13 @@
 #include <iostream>
 #include <string>
 #include <sqlite3.h>
+#include "../db/db.hpp"
 
 bool VerificaTutorAdmin (std :: string email, std :: string password) {
-    sqlite3 *db;
     int rc;
-    rc = sqlite3_open("./db/risorse_didattiche.db", &db);
-    if (rc != SQLITE_OK){
-        std :: cerr << "Impossibile aprire database" << std :: endl;
-        sqlite3_close(db);
-        return (1);
-    }
-    const char *verifica_email = "SELECT tb_tutor.mail_interna, tb_tutor.Password FROM tb_tutor;";
+    sqlite3 *db;
+    db = ApriConnessione("./db/risorse_didattiche.db");
+    const char *verifica_email = "SELECT tb_tutor.mail_interna, tb_tutor.Password FROM tb_tutor WHERE tb_tutor.mail_interna = :MAIL AND tb_tutor.password = :PASSWORD;";
     sqlite3_stmt *pstmt;
     rc = sqlite3_prepare_v2 (db, verifica_email, -1, &pstmt, NULL);
 
@@ -21,32 +17,51 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
         return (1);
     }
 
-    rc = sqlite3_step (pstmt);
-    bool val = false;
-    while (rc == SQLITE_ROW){
-        const unsigned char* mail = sqlite3_column_text (pstmt, 0);
-        const unsigned char* pass = sqlite3_column_text (pstmt, 1);
-        if (email == reinterpret_cast<const char*> (mail) && password == reinterpret_cast<const char*> (pass)){
-            std :: cerr << "Utente verificato" << std :: endl;
-            val = true;
-            break;
-        } else {
-            std :: cerr << "Email o password errati" << std :: endl;
-            break;
-        }
-        rc = sqlite3_step (pstmt);
+    int pos_par;
+    pos_par = sqlite3_bind_parameter_index (pstmt, ":MAIL");
+    rc = sqlite3_bind_text (pstmt, pos_par, reinterpret_cast<const char *> (email.c_str()), -1, NULL);
+    if ( rc != SQLITE_OK) {
+        std :: cerr << "Errore nell'inserimento della mail" << std :: endl;
+        sqlite3_close (db);
+        return false;
     }
+
+    pos_par = sqlite3_bind_parameter_index (pstmt, ":PASSWORD");
+    rc = sqlite3_bind_text (pstmt, pos_par, reinterpret_cast<const char *> (password.c_str()), -1, NULL);
+    if ( rc != SQLITE_OK) {
+        std :: cerr << "Errore nell'inserimento della password" << std :: endl;
+        sqlite3_close (db);
+        return false;
+    }
+
+    rc = sqlite3_step (pstmt);
+    if (rc == SQLITE_ROW) {
+        std :: cerr << "Parametro trovato con successo" << std :: endl;
+        sqlite3_finalize (pstmt);
+        sqlite3_close (db);
+        return true;
+    }
+
+    else if (rc == SQLITE_DONE) {
+        std :: cerr << "Nessun utente trovato con tali credenziali" << std :: endl;
+        sqlite3_finalize (pstmt);
+        sqlite3_close (db);
+        return false;
+    }
+
+    std :: cerr << "Errore nell'esecuzione dell'istruzione sql" << std :: endl;
+    std :: cerr << rc << std :: endl;
+    std :: cerr << sqlite3_errstr(sqlite3_extended_errcode(db)) << std :: endl;
+    std :: cerr << sqlite3_errmsg(db) << std :: endl;
     sqlite3_finalize (pstmt);
     sqlite3_close (db);
-
-    return val;
-
-}
+    return false;
+    }
 
 bool VerificaStudente (std :: string email, std :: string password) {
-    sqlite3* db;
-    int rc = sqlite3_open ("./db/risorse_didattiche.db", &db);
-
+    int rc;
+    sqlite3 *db;
+    db = ApriConnessione("./db/risorse_didattiche.db");
     if (rc!= SQLITE_OK) {
         std :: cerr << "Errore apertura database" << std :: endl;
         sqlite3_close(db);
