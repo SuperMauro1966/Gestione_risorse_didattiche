@@ -37,6 +37,8 @@
 			<Add library="sqlite3-library/libsqlite3.a" />
 			<Add directory="sqlite3-library" />
 		</Linker>
+		<Unit filename="db/db.cpp" />
+		<Unit filename="db/db.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="security/security.cpp" />
 		<Unit filename="security/security.hpp" />

@@ -15,6 +15,8 @@ int main()
 {
     bool autorizzato;
 
+    ApriConnessione ("./db/risorse_didattiche.db");
+
     while (true) {
         StampaMessaggioBenvenuto ();
         autorizzato = AutorizzazioneUtente ();
