@@ -12,3 +12,8 @@ sqlite3* ApriConnessione(std :: string nome_db){
     }
     return db;
 }
+
+void ChiudiConnessione (sqlite3* connessione) {
+    std :: clog << "Chiuso database" << std :: endl;
+    sqlite3_close (connessione);
+}

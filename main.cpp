@@ -1,5 +1,6 @@
 #include <iostream>
 #include "security/security.hpp"
+#include "db/db.hpp"
 
 using namespace std;
 
@@ -14,8 +15,9 @@ void MostraMenu (){
 int main()
 {
     bool autorizzato;
+    sqlite3* con;
 
-    ApriConnessione ("./db/risorse_didattiche.db");
+    con = ApriConnessione ("./db/risorse_didattiche.db");
 
     while (true) {
         StampaMessaggioBenvenuto ();
@@ -28,5 +30,8 @@ int main()
             cout << "Utente non autorizzato" << endl;
         }
     }
+
+    ChiudiConnessione (con);
+
     return 0;
 }
