@@ -7,7 +7,7 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
     int rc;
     rc = sqlite3_open("../db/risorse_didattiche.db", &db);
     if (rc != SQLITE_OK){
-        std :: cout << "Impossibile aprire database" << std :: endl;
+        std :: cerr << "Impossibile aprire database" << std :: endl;
         sqlite3_close(db);
         return (1);
     }
@@ -16,7 +16,7 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
     rc = sqlite3_prepare_v2 (db, verifica_email, -1, &pstmt, NULL);
 
     if (rc != SQLITE_OK){
-        std :: cout << "Impossibile creare statement" << std :: endl;
+        std :: cerr << "Impossibile creare statement" << std :: endl;
         sqlite3_close (db);
         return (1);
     }
@@ -27,11 +27,12 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
         const unsigned char* mail = sqlite3_column_text (pstmt, 0);
         const unsigned char* pass = sqlite3_column_text (pstmt, 1);
         if (email == reinterpret_cast<const char*> (mail) && password == reinterpret_cast<const char*> (pass)){
-            std :: cout << "Utente verificato" << std :: endl;
+            std :: cerr << "Utente verificato" << std :: endl;
             val = true;
             break;
         } else {
-            std :: cout << "Email o password errati" << std :: endl;
+            std :: cerr << "Email o password errati" << std :: endl;
+            break;
         }
         rc = sqlite3_step (pstmt);
     }
