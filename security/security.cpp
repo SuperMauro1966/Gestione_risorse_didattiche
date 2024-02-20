@@ -2,9 +2,9 @@
 #include <string>
 #include <sqlite3.h>
 #include "../db/db.hpp"
-#include "security/security.hpp"
+#include "../security/security.hpp"
 
-bool VerificaTutorAdmin (std :: string email, std :: string password) {
+bool VerificaTutor (std :: string email, std :: string password) {
     int rc;
     sqlite3 *db;
     db = GetConnessione("./db/risorse_didattiche.db");
@@ -58,6 +58,10 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
     sqlite3_close (db);
     return false;
     }
+
+bool VerificaAdmin (std :: string email, std :: string password){
+    return true;
+}
 
 bool VerificaStudente (std :: string email, std :: string password) {
     int rc;
@@ -129,7 +133,7 @@ bool VerificaStudente (std :: string email, std :: string password) {
 }
 
 
-bool AutorizzazioneUtente () {
+utente_t AutorizzazioneUtente () {
     // Richiedi email e la password
     // Se tutor/admin o Studente ritorna ok
     std :: string email ("");
@@ -139,12 +143,15 @@ bool AutorizzazioneUtente () {
     std :: cout << "Inserisci password" << std :: endl;
     std :: cin >> password;
     // Se sei tutor o admin ritorna true
-    if (VerificaTutorAdmin(email, password)){
-        return true;
+    if (VerificaTutor(email, password)){
+        return Tutor;
     }
     else if (VerificaStudente(email, password)){ // se sei studente ritorna true
-        return true;
+        return Studente;
+    }
+    else if (VerificaAdmin(email, password)){
+        return Admin;
     }
     // Altrimenti ritorna false
-    return false;
+    return NonAutorizzato;
 }
