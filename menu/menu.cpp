@@ -34,7 +34,7 @@ void MostraMenuStudente () {
     int scelta;
     std :: cout << '\0x1B' << '[' << '2' << 'J' << std :: flush;
     std :: cout << "Menù Studente: " << std :: endl;
-    std :: cout << "Scegliere il menù da visualizzare: ";
+    std :: cout << "Scegliere il menù da visualizzare: " << std :: endl;
     std :: cout << "1. Le tue materie" << std :: endl;
     std :: cout << "2. Le risorse disponibili" << std :: endl;
     std :: cout << "3. Aggiungi risorse" << std :: endl;
