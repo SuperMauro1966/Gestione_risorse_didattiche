@@ -40,6 +40,8 @@
 		<Unit filename="db/db.cpp" />
 		<Unit filename="db/db.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu/menu.cpp" />
+		<Unit filename="menu/menu.hpp" />
 		<Unit filename="security/security.cpp" />
 		<Unit filename="security/security.hpp" />
 		<Extensions>
