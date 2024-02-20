@@ -17,7 +17,7 @@ int main()
     bool autorizzato;
     sqlite3* con;
 
-    con = ApriConnessione ("./db/risorse_didattiche.db");
+    con = GetConnessione ("./db/risorse_didattiche.db");
 
     while (true) {
         StampaMessaggioBenvenuto ();
