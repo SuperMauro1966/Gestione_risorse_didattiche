@@ -13,8 +13,7 @@ bool VerificaTutor (std :: string email, std :: string password) {
     rc = sqlite3_prepare_v2 (db, verifica_email, -1, &pstmt, NULL);
 
     if (rc != SQLITE_OK){
-        std :: clog << "Impossibile creare statement" << std :: endl;
-        sqlite3_close (db);
+        std :: cerr << "Impossibile creare statement" << std :: endl;
         return (1);
     }
 
@@ -22,16 +21,14 @@ bool VerificaTutor (std :: string email, std :: string password) {
     pos_par = sqlite3_bind_parameter_index (pstmt, ":MAIL");
     rc = sqlite3_bind_text (pstmt, pos_par, reinterpret_cast<const char *> (email.c_str()), -1, NULL);
     if ( rc != SQLITE_OK) {
-        std :: clog << "Errore nell'inserimento della mail" << std :: endl;
-        sqlite3_close (db);
+        std :: cerr << "Errore nell'inserimento della mail" << std :: endl;
         return false;
     }
 
     pos_par = sqlite3_bind_parameter_index (pstmt, ":PASSWORD");
     rc = sqlite3_bind_text (pstmt, pos_par, reinterpret_cast<const char *> (password.c_str()), -1, NULL);
     if ( rc != SQLITE_OK) {
-        std :: clog << "Errore nell'inserimento della password" << std :: endl;
-        sqlite3_close (db);
+        std :: cerr << "Errore nell'inserimento della password" << std :: endl;
         return false;
     }
 
@@ -39,14 +36,12 @@ bool VerificaTutor (std :: string email, std :: string password) {
     if (rc == SQLITE_ROW) {
         std :: clog << "Parametro trovato con successo" << std :: endl;
         sqlite3_finalize (pstmt);
-        sqlite3_close (db);
         return true;
     }
 
     else if (rc == SQLITE_DONE) {
         std :: clog << "Nessun utente trovato con tali credenziali" << std :: endl;
         sqlite3_finalize (pstmt);
-        sqlite3_close (db);
         return false;
     }
 
@@ -55,7 +50,6 @@ bool VerificaTutor (std :: string email, std :: string password) {
     std :: clog << sqlite3_errstr(sqlite3_extended_errcode(db)) << std :: endl;
     std :: clog << sqlite3_errmsg(db) << std :: endl;
     sqlite3_finalize (pstmt);
-    sqlite3_close (db);
     return false;
     }
 
@@ -68,8 +62,7 @@ bool VerificaStudente (std :: string email, std :: string password) {
     sqlite3 *db;
     db = GetConnessione("./db/risorse_didattiche.db");
     if (rc!= SQLITE_OK) {
-        std :: clog << "Errore apertura database" << std :: endl;
-        sqlite3_close(db);
+        std :: cerr << "Errore apertura database" << std :: endl;
         return false;
     }
 
@@ -84,7 +77,6 @@ bool VerificaStudente (std :: string email, std :: string password) {
         std :: clog << sqlite3_errstr(sqlite3_extended_errcode(db)) << std :: endl;
         std :: clog << sqlite3_errmsg(db) << std :: endl;
         sqlite3_finalize (stmt);
-        sqlite3_close(db);
         return false;
     }
 
@@ -92,16 +84,14 @@ bool VerificaStudente (std :: string email, std :: string password) {
     pos_par = sqlite3_bind_parameter_index (stmt, ":MAIL");
     rc = sqlite3_bind_text (stmt, pos_par, reinterpret_cast<const char *> (email.c_str()), -1, NULL);
     if ( rc != SQLITE_OK) {
-        std :: clog << "Errore nell'inserimento della mail" << std :: endl;
-        sqlite3_close (db);
+        std :: cerr << "Errore nell'inserimento della mail" << std :: endl;
         return false;
     }
 
     pos_par = sqlite3_bind_parameter_index (stmt, ":PASSWORD");
     rc = sqlite3_bind_text (stmt, pos_par, reinterpret_cast<const char *> (password.c_str()), -1, NULL);
     if ( rc != SQLITE_OK) {
-        std :: clog << "Errore nell'inserimento della password" << std :: endl;
-        sqlite3_close (db);
+        std :: cerr << "Errore nell'inserimento della password" << std :: endl;
         return false;
     }
 
@@ -109,17 +99,13 @@ bool VerificaStudente (std :: string email, std :: string password) {
 
     if (rc == SQLITE_ROW) {
         std :: clog << "Parametro trovato con successo" << std :: endl;
-
         sqlite3_finalize (stmt);
-        sqlite3_close (db);
         return true;
     }
 
     else if (rc == SQLITE_DONE) {
         std :: clog << "Nessun utente trovato con tali credenziali" << std :: endl;
-
         sqlite3_finalize (stmt);
-        sqlite3_close (db);
         return false;
     }
 
@@ -128,7 +114,6 @@ bool VerificaStudente (std :: string email, std :: string password) {
     std :: clog << sqlite3_errstr(sqlite3_extended_errcode(db)) << std :: endl;
     std :: clog << sqlite3_errmsg(db) << std :: endl;
     sqlite3_finalize (stmt);
-    sqlite3_close (db);
     return false;
 }
 
