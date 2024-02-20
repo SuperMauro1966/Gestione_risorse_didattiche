@@ -2,9 +2,9 @@
 #include "../security/security.hpp"
 
 void MostraMenuTutor () {
-
     int sm;
-    std :: cout << "Menù Tutor: " << std :: endl;
+    std :: cout << "\033[2J\033[\1;1H";
+    std :: cout << "Menu Tutor: " << std :: endl;
 
     std :: cout << "0- Inserisci argomenti: " << std :: endl;
     std :: cout << "1- Rimuovi argomenti: " << std :: endl;
@@ -32,9 +32,9 @@ void MostraMenuTutor () {
 
 void MostraMenuStudente () {
     int scelta;
-    std :: cout << '\0x1B' << '[' << '2' << 'J' << std :: flush;
-    std :: cout << "Menù Studente: " << std :: endl;
-    std :: cout << "Scegliere il menù da visualizzare: " << std :: endl;
+    std :: cout << "\033[2J\033[\1;1H";
+    std :: cout << "Menu Studente: " << std :: endl;
+    std :: cout << "Scegliere il menu da visualizzare: " << std :: endl;
     std :: cout << "1. Le tue materie" << std :: endl;
     std :: cout << "2. Le risorse disponibili" << std :: endl;
     std :: cout << "3. Aggiungi risorse" << std :: endl;
@@ -60,7 +60,7 @@ void MostraMenuStudente () {
 }
 
 void MostraMenuAdmin () {
-    std :: cout << "Menù Admin: " << std :: endl;
+    std :: cout << "Menu Admin: " << std :: endl;
 }
 
 void MostraMenu (utente_t utente){
