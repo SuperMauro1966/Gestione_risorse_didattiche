@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-sqlite3* ApriConnessione(std :: string nome_db){
+sqlite3* GetConnessione(std :: string nome_db){
     static sqlite3 *db = NULL;
     int rc;
     if (db != NULL) {

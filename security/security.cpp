@@ -6,7 +6,7 @@
 bool VerificaTutorAdmin (std :: string email, std :: string password) {
     int rc;
     sqlite3 *db;
-    db = ApriConnessione("./db/risorse_didattiche.db");
+    db = GetConnessione("./db/risorse_didattiche.db");
     const char *verifica_email = "SELECT tb_tutor.mail_interna, tb_tutor.Password FROM tb_tutor WHERE tb_tutor.mail_interna = :MAIL AND tb_tutor.password = :PASSWORD;";
     sqlite3_stmt *pstmt;
     rc = sqlite3_prepare_v2 (db, verifica_email, -1, &pstmt, NULL);
@@ -61,7 +61,7 @@ bool VerificaTutorAdmin (std :: string email, std :: string password) {
 bool VerificaStudente (std :: string email, std :: string password) {
     int rc;
     sqlite3 *db;
-    db = ApriConnessione("./db/risorse_didattiche.db");
+    db = GetConnessione("./db/risorse_didattiche.db");
     if (rc!= SQLITE_OK) {
         std :: cerr << "Errore apertura database" << std :: endl;
         sqlite3_close(db);
