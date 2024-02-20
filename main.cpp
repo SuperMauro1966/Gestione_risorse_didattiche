@@ -1,6 +1,7 @@
 #include <iostream>
 #include "security/security.hpp"
 #include "db/db.hpp"
+#include "menu/menu.hpp"
 
 using namespace std;
 
@@ -8,23 +9,19 @@ int StampaMessaggioBenvenuto () {
     cout << "Benvenuto" << endl;
 }
 
-void MostraMenu (){
-    cout << "++Menu principale**" << endl;
-}
-
 int main()
 {
-    bool autorizzato;
+    utente_t autorizzazione_utente;
     sqlite3* con;
 
-    con = ApriConnessione ("./db/risorse_didattiche.db");
+    con = GetConnessione ("./db/risorse_didattiche.db");
 
     while (true) {
         StampaMessaggioBenvenuto ();
-        autorizzato = AutorizzazioneUtente ();
+        autorizzazione_utente = AutorizzazioneUtente ();
 
-        if (autorizzato) {
-            MostraMenu ();
+        if (autorizzazione_utente != NonAutorizzato) {
+            MostraMenu (autorizzazione_utente);
         }
         else {
             cout << "Utente non autorizzato" << endl;
