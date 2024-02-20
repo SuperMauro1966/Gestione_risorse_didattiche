@@ -2,6 +2,7 @@
 #include <string>
 #include <sqlite3.h>
 #include "../db/db.hpp"
+#include "security/security.hpp"
 
 bool VerificaTutorAdmin (std :: string email, std :: string password) {
     int rc;
