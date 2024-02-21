@@ -1,6 +1,12 @@
 #include <sqlite3.h>
 #include <string>
 #include <iostream>
+#include <list>
+#include "db.hpp"
+
+using std::string;
+using std::list;
+
 
 sqlite3* GetConnessione(std :: string nome_db){
     static sqlite3 *db = NULL;
@@ -87,3 +93,10 @@ sqlite3* ApriConnessioni(std :: string nome_db){
 
     return db;
 }
+
+list<CorsoArgomento> * OttieniMaterieFacoltativeByMatricola () {
+    list<CorsoArgomento> * lista_corsi_argomenti = new list<CorsoArgomento> ();
+
+    return lista_corsi_argomenti;
+}
+
