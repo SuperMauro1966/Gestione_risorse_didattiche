@@ -118,15 +118,7 @@ bool VerificaStudente (std :: string email, std :: string password) {
 }
 
 
-utente_t AutorizzazioneUtente () {
-    // Richiedi email e la password
-    // Se tutor/admin o Studente ritorna ok
-    std :: string email ("");
-    std :: string password ("");
-    std :: cout << "Inserire email" << std :: endl;
-    std :: cin >> email;
-    std :: cout << "Inserisci password" << std :: endl;
-    std :: cin >> password;
+utente_t AutorizzazioneUtente (std :: string &email, std :: string &password) {
     // Se sei tutor o admin ritorna true
     if (VerificaTutor(email, password)){
         return Tutor;
