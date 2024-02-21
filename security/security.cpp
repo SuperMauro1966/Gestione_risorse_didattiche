@@ -172,7 +172,7 @@ bool VerificaStudente (std :: string email, std :: string password) {
 
 utente_t AutorizzazioneUtente (std :: string &email, std :: string &password) {
     // Verifico se sono un tutor
-    if (Admin_TutorPresenti(email, password, false)){
+    if (VerificaTutor(email, password)){
         return Tutor;
     }
     // Verifico se sono uno studente

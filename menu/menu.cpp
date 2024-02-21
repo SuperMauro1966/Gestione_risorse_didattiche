@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../security/security.hpp"
-
+#include "../azioni_menu/azioni_menu_tutor.hpp"
 inline void ClearScreen () {
     std :: cout << "\033[2J\033[\1;1H";
 }
@@ -19,17 +19,21 @@ void MostraMenuTutor () {
     std :: cout << "Scegli il menu " << std :: endl;
     std :: cin >> sm;
 
-    if (sm == 0) {
-        std :: cout << "0- Inserisci argomenti: " << std :: endl;
-    }
-    else if (sm == 1) {
-       std :: cout << "1- Rimuovi argomenti: " << std :: endl;
-    }
-    else if (sm == 2) {
-        std :: cout << "2- Modifica argomenti: " << std :: endl;
-    }
-    else if (sm == 3) {
-        std :: cout << "3- I tuoi studenti" << std :: endl;
+    switch (sm){
+        case 0:
+            std :: cout << "0- Inserisci argomenti: " << std :: endl;
+            break;
+        case 1:
+            std :: cout << "1- Rimuovi argomenti: " << std :: endl;
+            break;
+        case 2:
+            std :: cout << "2- Modifica argomenti: " << std :: endl;
+            break;
+        case 3:
+            std :: cout << "3- I tuoi studenti" << std :: endl;
+            break;
+        default :
+            break;
     }
 
 }
@@ -75,6 +79,7 @@ void MostraMenu (utente_t utente){
             break;
         case Tutor:
             MostraMenuTutor ();
+            RimuoviArgomenti ();
             break;
         case Studente:
             MostraMenuStudente ();

@@ -39,6 +39,8 @@
 		</Linker>
 		<Unit filename="azioni_menu/azioni_menu_studente.cpp" />
 		<Unit filename="azioni_menu/azioni_menu_studente.hpp" />
+		<Unit filename="azioni_menu/azioni_menu_tutor.cpp" />
+		<Unit filename="azioni_menu/azioni_menu_tutor.hpp" />
 		<Unit filename="db/db.cpp" />
 		<Unit filename="db/db.hpp" />
 		<Unit filename="main.cpp" />
