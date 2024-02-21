@@ -1,9 +1,13 @@
 #include <iostream>
 #include "../security/security.hpp"
 
+inline void ClearScreen () {
+    std :: cout << "\033[2J\033[\1;1H";
+}
+
 void MostraMenuTutor () {
     int sm;
-    std :: cout << "\033[2J\033[\1;1H";
+    ClearScreen();
     std :: cout << "Menu Tutor: " << std :: endl;
 
     std :: cout << "0- Inserisci argomenti: " << std :: endl;
