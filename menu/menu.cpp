@@ -36,7 +36,7 @@ void MostraMenuTutor () {
 
 void MostraMenuStudente () {
     int scelta;
-    std :: cout << "\033[2J\033[\1;1H";
+    ClearScreen ();
     std :: cout << "Menu Studente: " << std :: endl;
     std :: cout << "Scegliere il menu da visualizzare: " << std :: endl;
     std :: cout << "1. Le tue materie" << std :: endl;
