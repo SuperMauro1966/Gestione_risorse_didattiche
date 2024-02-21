@@ -30,13 +30,10 @@ int main()
     while (true) {
         StampaMessaggioBenvenuto ();
         RichiediCredenziali (email, password);
-        std :: cout << "Email: " << email << std :: endl;
-        std :: cout << "Password: " << password << std :: endl;
         if (email == "q" && password == "q"){
             break;
         }
         autorizzazione_utente = AutorizzazioneUtente (email, password);
-
         if (autorizzazione_utente != NonAutorizzato) {
             MostraMenu (autorizzazione_utente);
         }
