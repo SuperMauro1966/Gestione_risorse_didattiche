@@ -1,0 +1,6 @@
+#ifndef AZIONI_MENU_TUTOR_HPP_INCLUDED
+#define AZIONI_MENU_TUTOR_HPP_INCLUDED
+
+bool RimuoviArgomenti ();
+
+#endif // AZIONI_MENU_TUTOR_HPP_INCLUDED
