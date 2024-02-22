@@ -3,12 +3,20 @@
 #include <string>
 #include "../db/db.hpp"
 
+
 bool RimuoviArgomenti () {
     int rc;
     std :: string argomento;
     std :: cout << "Inserisci il nome del argomento che vuoi rimuovere" << std :: endl;
     std :: cin >> argomento;
 
+    std::cout << "Sei sicuro di cancellare l'argomento? s==si, n==no";
+    char risposta;
+    std::cin >> risposta;
+    if (risposta != 's') {
+        std::cout << "Operazione annullata." << std::endl;
+        return false;
+    }
 
 
     sqlite3 *db;
@@ -31,23 +39,16 @@ bool RimuoviArgomenti () {
         return false;
     }
 
-    rc = sqlite3_step (pstmt);
-    if (rc == SQLITE_ROW) {
-        std :: clog << "Parametro trovato con successo" << std :: endl;
-        sqlite3_finalize (pstmt);
-        return true;
-    }
-
-    else if (rc == SQLITE_DONE) {
-        std :: clog << "Nessun utente trovato con tali credenziali" << std :: endl;
-        sqlite3_finalize (pstmt);
+    rc = sqlite3_step(pstmt);
+    if (rc != SQLITE_DONE) {
+        std::cerr << "Errore nell'esecuzione dello statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_finalize(pstmt);
+        sqlite3_close(db);
         return false;
     }
 
-    std :: clog << "Errore nell'esecuzione dell'istruzione sql" << std :: endl;
-    std :: clog << rc << std :: endl;
-    std :: clog << sqlite3_errstr(sqlite3_extended_errcode(db)) << std :: endl;
-    std :: clog << sqlite3_errmsg(db) << std :: endl;
+    std::cout << "Argomento rimosso con successo." << std::endl;
+
     sqlite3_finalize (pstmt);
     return false;
 }

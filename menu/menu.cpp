@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../security/security.hpp"
 #include "../azioni_menu/azioni_menu_tutor.hpp"
+
 inline void ClearScreen () {
     std :: cout << "\033[2J\033[\1;1H";
 }
@@ -88,5 +89,3 @@ void MostraMenu (utente_t utente){
             std :: cout << "Nessun menu disponibile per questo utente" << std :: endl;
     }
 }
-
-MostraMaterieArgomenti ()

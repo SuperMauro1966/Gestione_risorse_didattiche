@@ -3,6 +3,7 @@
 #include <../db/db.hpp>
 #include <list>
 
+
 bool MostraMaterieArgomento () {
     // stampa le materie obbligatorie e facoltative e i loro argomenti collegati che lo studente segue e stamparle
 
@@ -51,6 +52,7 @@ bool MostraMaterieArgomento () {
     if (!corsi_facoltativi->empty()) {
     corsi_facoltativi->pop_front();
     }
+    std :: cerr << OttieniMaterieFacoltativeByMatricola << std :: endl;
     delete corsi_facoltativi;
     return true;
 }

@@ -2,5 +2,4 @@
 #define AZIONI_MENU_HPP_INCLUDED
 
 
-
 #endif // AZIONI_MENU_HPP_INCLUDED
