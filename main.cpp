@@ -6,6 +6,7 @@
 
 // using namespace std;
 using std :: cout, std :: cin, std :: endl;
+
 void RichiediCredenziali (std :: string &email, std :: string &password) {
 
     cout << "Inserire email" << std :: endl;

@@ -3,6 +3,36 @@
 #include <../db/db.hpp>
 #include <list>
 
+void MostraArgomenti() {
+    sqlite3 *db;
+    int rc = sqlite3_open("./db/risorse_didattiche.db", &db);
+    if (rc) {
+        std::cerr << "Impossibile aprire il database: " << sqlite3_errmsg(db) << std::endl;
+    }
+
+    const char *query = "SELECT tb_argomento.nome FROM tb_argomento;";
+    sqlite3_stmt *stmt;
+    rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Impossibile eseguire la query: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+    }
+
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+        // Stampa i dati di ogni colonna della riga
+        for (int i = 0; i < sqlite3_column_count(stmt); ++i) {
+            std::cout << sqlite3_column_text(stmt, i) << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    if (rc != SQLITE_DONE) {
+        std::cerr << "Errore nel recupero dei dati: " << sqlite3_errmsg(db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
 
 bool MostraMaterieArgomento () {
     // stampa le materie obbligatorie e facoltative e i loro argomenti collegati che lo studente segue e stamparle
@@ -47,14 +77,6 @@ bool MostraMaterieArgomento () {
     sqlite3_finalize (pstmt);
     return false;
 
-    std :: cerr << "Lista delle materie facoltative seguite dallo studente: " << std :: endl;
-    std :: list<CorsoArgomento> * corsi_facoltativi = OttieniMaterieFacoltativeByMatricola();
-    if (!corsi_facoltativi->empty()) {
-    corsi_facoltativi->pop_front();
-    }
-    std :: cerr << OttieniMaterieFacoltativeByMatricola << std :: endl;
-    delete corsi_facoltativi;
-    return true;
 }
 
 

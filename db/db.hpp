@@ -7,6 +7,7 @@
 struct CorsoArgomento {
         std::string NomeCorso;
         std::string NomeArgomento;
+        std::string nome;
 };
 
 typedef struct CorsoArgomento CorsoArgomento;
@@ -15,6 +16,6 @@ typedef struct CorsoArgomento CorsoArgomento;
 sqlite3* GetConnessione(std :: string nome_db);
 void ChiudiConnessione (sqlite3* connessione);
 
-std::list<CorsoArgomento> * OttieniMaterieFacoltativeByMatricola();
+std::list<CorsoArgomento>  OttieniMaterieFacoltativeByMatricola();
 
 #endif // DB_HPP_INCLUDE

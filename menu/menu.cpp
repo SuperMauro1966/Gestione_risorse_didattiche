@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../security/security.hpp"
 #include "../azioni_menu/azioni_menu_tutor.hpp"
+#include <list>
+#include "../db/db.hpp"
 
 inline void ClearScreen () {
     std :: cout << "\033[2J\033[\1;1H";
@@ -52,6 +54,10 @@ void MostraMenuStudente () {
     std :: cin >> scelta;
     if ( scelta == 1) {
         std :: cout << "Le tue materie: " << std :: endl;
+        std::list<CorsoArgomento> materie_facoltative = OttieniMaterieFacoltativeByMatricola();
+        for (const auto& corso : materie_facoltative) {
+            std::cout << corso.nome << std::endl;
+        }
     }
     else if ( scelta == 2 ) {
         std :: cout << "Le risorse disponibili: " << std :: endl;
@@ -84,6 +90,7 @@ void MostraMenu (utente_t utente){
             break;
         case Studente:
             MostraMenuStudente ();
+            MostraArgomenti ();
             break;
         default:
             std :: cout << "Nessun menu disponibile per questo utente" << std :: endl;
