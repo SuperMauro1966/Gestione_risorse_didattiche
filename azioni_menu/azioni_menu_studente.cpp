@@ -3,7 +3,7 @@
 #include <../db/db.hpp>
 #include <list>
 
-bool MostraMaterieArgomenti () {
+bool MostraMaterieArgomento () {
     // stampa le materie obbligatorie e facoltative e i loro argomenti collegati che lo studente segue e stamparle
 
     int rc;
