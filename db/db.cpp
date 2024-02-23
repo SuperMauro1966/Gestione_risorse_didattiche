@@ -97,41 +97,34 @@ sqlite3* ApriConnessioni(std :: string nome_db){
 std::list<CorsoArgomento> OttieniMaterieFacoltativeByMatricola() {
     std::list<CorsoArgomento> lista_corsi_argomenti;
 
-    // Connessione al database
     sqlite3 *db = GetConnessione("./db/risorse_didattiche.db");
     if (!db) {
         std::cerr << "Impossibile aprire il database" << std::endl;
-        // Gestione dell'errore, restituisci la lista vuota o fai altro...
         return lista_corsi_argomenti;
     }
 
-    // Query per ottenere le materie facoltative
     const char *query = "SELECT nome FROM tb_argomento";
     sqlite3_stmt *stmt;
     int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Impossibile preparare la query: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
-        // Gestione dell'errore, restituisci la lista vuota o fai altro...
         return lista_corsi_argomenti;
     }
 
-    // Esecuzione della query e popolamento della lista
-    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+    rc = sqlite3_step(stmt);
+    while (rc != SQLITE_ROW) {
     const unsigned char* nome_c_str = sqlite3_column_text(stmt, 0);
     if (nome_c_str != nullptr) {
         CorsoArgomento corso;
         corso.nome = std::string(reinterpret_cast<const char*>(nome_c_str));
         lista_corsi_argomenti.push_back(corso);
     } else {
-        // Gestione dell'errore nel caso in cui il valore del nome sia nullo
         std::cerr << "Il valore del nome restituito e nullo" << std::endl;
-        // Puoi scegliere di ignorare questa riga o fare altre azioni correttive
     }
 }
 
-    // Controllo degli errori e chiusura delle risorse
-    if (rc != SQLITE_DONE) {
+    if (rc == SQLITE_DONE) {
         std::cerr << "Errore durante l'esecuzione della query: " << sqlite3_errmsg(db) << std::endl;
     }
 
