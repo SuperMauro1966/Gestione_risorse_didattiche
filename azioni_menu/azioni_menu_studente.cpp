@@ -79,4 +79,56 @@ bool MostraMaterieArgomento () {
 
 }
 
+void InserimentoRisorsaStudente (const std :: string& matricola, const std :: string& risorsa) {
+    sqlite3* db;
+
+    int rc = sqlite3_open("./db/risorse_didattiche.db", &db);
+    if (rc) {
+        std::cerr << "Impossibile aprire il database: " << sqlite3_errmsg(db) << std::endl;
+    }
+
+  sqlite3_stmt* stmt;
+    const char* sql = "INSERT INTO tb_elenco_risorse_disponibili (ID_risorse, matricola) VALUES (:ID_RISORSE, :MATRICOLA);";
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std :: cerr << "Errore nella preparazione della query: " << sqlite3_errmsg(db) << std :: endl;
+        return;
+    }
+
+    sqlite3_bind_text(stmt, 1, risorsa.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, matricola.c_str(), -1, SQLITE_STATIC);
+
+    rc = sqlite3_step(stmt);
+    if (rc != SQLITE_DONE) {
+        std :: cerr << "Errore nell'esecuzione della query: " << sqlite3_errmsg(db) << std :: endl;
+    }
+    sqlite3_finalize(stmt);
+}
+
+void VediRisorseProposte(const std :: string& matricola) {
+    sqlite3* db;
+    int rc = sqlite3_open("./db/risorse_didattiche.db", &db);
+        if (rc) {
+            std::cerr << "Impossibile aprire il database: " << sqlite3_errmsg(db) << std::endl;
+        }
+
+    std :: string sql = "SELECT ID_risorse FROM tb_elenco_risorse_disponibili WHERE tb_elenco_risorse_disponibili.matricola = :MATRICOLA;";
+
+    sqlite3_stmt* stmt;
+    rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std :: cerr << "Errore nella preparazione della query: " << sqlite3_errmsg(db) << std :: endl;
+        return;
+    }
+    sqlite3_bind_text(stmt, 1, matricola.c_str(), -1, SQLITE_STATIC);
+
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+        std :: cout << sqlite3_column_text(stmt, 0) << std :: endl;
+    }
+
+    sqlite3_finalize(stmt);
+}
+
+
+
 

@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../security/security.hpp"
 #include "../azioni_menu/azioni_menu_tutor.hpp"
+#include "../azioni_menu/azioni_menu_studente.hpp"
+#include "../azioni_menu/azioni_menu_admin.hpp"
 #include <list>
 #include "../db/db.hpp"
 
@@ -51,6 +53,7 @@ void MostraMenuStudente () {
     std :: cout << "3. Aggiungi risorse" << std :: endl;
     std :: cout << "4. Rimuovi risorse" << std :: endl;
     std :: cout << "5. Vedi tutor disponibili" << std :: endl;
+    std :: cout << "6. Vedi le risorse che hai proposto" << std :: endl;
     std :: cin >> scelta;
     if ( scelta == 1) {
         std :: cout << "Le tue materie: " << std :: endl;
@@ -63,13 +66,26 @@ void MostraMenuStudente () {
         std :: cout << "Le risorse disponibili: " << std :: endl;
     }
     else if ( scelta == 3 ) {
+        std :: string matricola, risorsa;
         std :: cout << "Aggiungi risorse: " << std :: endl;
+        std :: cout << "Inserire la matricola: " << std :: endl;
+        std :: cin >> matricola;
+        std :: cout << "Inserire l'id della nuova risorsa: " << std :: endl;
+        std :: cin >> risorsa;
+        InserimentoRisorsaStudente (matricola, risorsa);
     }
     else if ( scelta == 4 ) {
         std :: cout << "Rimuovi risorse: " << std :: endl;
     }
     else if ( scelta == 5 ) {
         std :: cout << "Vedi tutor disponibili: " << std :: endl;
+    }
+    else if ( scelta == 6 ) {
+        std :: string matricola;
+        std :: cout << "Vedi le risorse che hai proposto: " << std :: endl;
+        std :: cout << "Inserire la matricola: " << std :: endl;
+        std :: cin >> matricola;
+        VediRisorseProposte (matricola);
     }
 
 }
@@ -81,18 +97,23 @@ void MostraMenuAdmin () {
 void MostraMenu (utente_t utente){
 
     switch (utente) {
-        case Admin:
+        case Admin: {
+            std :: string matricola;
+            int risorsa;
+            bool accetta;
             MostraMenuAdmin ();
-            break;
-        case Tutor:
+            AccettaOEliminaProposta (matricola, risorsa, accetta);
+            MostraRisorseProposte();
+            break; }
+        case Tutor: {
             MostraMenuTutor ();
             RimuoviArgomenti ();
-            break;
-        case Studente:
+            break; }
+        case Studente: {
             MostraMenuStudente ();
             MostraArgomenti ();
-            break;
-        default:
-            std :: cout << "Nessun menu disponibile per questo utente" << std :: endl;
+            break; }
+        default: {
+            std :: cout << "Nessun menu disponibile per questo utente" << std :: endl; }
     }
 }
