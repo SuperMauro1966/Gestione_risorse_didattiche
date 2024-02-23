@@ -103,7 +103,7 @@ std::list<CorsoArgomento> OttieniMaterieFacoltativeByMatricola() {
         return lista_corsi_argomenti;
     }
 
-    const char *query = "SELECT nome FROM tb_argomento";
+    const char *query = "SELECT tb_argomento.nome FROM tb_argomento";
     sqlite3_stmt *stmt;
     int rc = sqlite3_prepare_v2(db, query, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
@@ -131,5 +131,44 @@ std::list<CorsoArgomento> OttieniMaterieFacoltativeByMatricola() {
     sqlite3_close(db);
 
     return lista_corsi_argomenti;
+}
+
+std::list<RisorseArgomento> OttieniRisorseDisponibiliByMatricola() {
+    std::list<RisorseArgomento> lista_risorse_disponibili;
+
+    sqlite3 *db = GetConnessione("./db/risorse_didattiche.db");
+    if (!db) {
+        std::cerr << "Impossibile aprire il database" << std::endl;
+        return lista_risorse_disponibili;
+    }
+
+    const char *query = "SELECT tb_argomento.nome, tb_elenco_risorse_disponibili.Tipo FROM tb_argomento INNER JOIN tb_corso ON tb_argomento.id_corso = tb_corso.ID_corso INNER JOIN tb_studente_corso ON tb_corso.ID_corso = tb_studente_corso.id_corso INNER JOIN tb_studente ON tb_studente_corso.matricola = tb_studente.Matricola INNER JOIN tb_elenco_risorse_disponibili ON tb_studente.Matricola = tb_elenco_risorse_disponibili.matricola WHERE tb_elenco_risorse_disponibili.matricola = :MATRICOLA;";
+    sqlite3_stmt *pstmt;
+    int rc = sqlite3_prepare_v2(db, query, -1, &pstmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Impossibile preparare la query: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return lista_risorse_disponibili;
+    }
+
+    while ((rc = sqlite3_step(pstmt)) == SQLITE_ROW) {
+    const unsigned char* nome_c_str = sqlite3_column_text(pstmt, 0);
+    if (nome_c_str != nullptr) {
+        RisorseArgomento risorsa;
+        risorsa.tipologia = std::string(reinterpret_cast<const char*>(nome_c_str));
+        lista_risorse_disponibili.push_back(risorsa);
+    } else {
+        std::cerr << "Il valore del nome restituito e nullo" << std::endl;
+    }
+}
+
+    if (rc != SQLITE_DONE) {
+        std::cerr << "Errore durante l'esecuzione della query: " << sqlite3_errmsg(db) << std::endl;
+    }
+
+    sqlite3_finalize(pstmt);
+    sqlite3_close(db);
+
+    return lista_risorse_disponibili;
 }
 

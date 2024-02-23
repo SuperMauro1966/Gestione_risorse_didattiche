@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../security/security.hpp"
 #include "../azioni_menu/azioni_menu_tutor.hpp"
+#include "../azioni_menu/azioni_menu_studente.hpp"
 #include <list>
 #include "../db/db.hpp"
 
@@ -55,12 +56,16 @@ void MostraMenuStudente () {
     if ( scelta == 1) {
         std :: cout << "Le tue materie: " << std :: endl;
         std::list<CorsoArgomento> materie_facoltative = OttieniMaterieFacoltativeByMatricola();
-        for (const auto& corso : materie_facoltative) {
-            std::cout << corso.nome << std::endl;
+        for (std::list<CorsoArgomento>::iterator it = materie_facoltative.begin(); it != materie_facoltative.end(); ++it) {
+            std::cout << it->nome << std :: endl;
         }
     }
     else if ( scelta == 2 ) {
         std :: cout << "Le risorse disponibili: " << std :: endl;
+        std::list<RisorseArgomento> tipo_risorsa = OttieniRisorseDisponibiliByMatricola();
+        for (std::list<RisorseArgomento>::iterator it = tipo_risorsa.begin(); it != tipo_risorsa.end(); ++it) {
+             std::cout << it->tipologia << std :: endl;
+        }
     }
     else if ( scelta == 3 ) {
         std :: cout << "Aggiungi risorse: " << std :: endl;
@@ -91,6 +96,7 @@ void MostraMenu (utente_t utente){
         case Studente:
             MostraMenuStudente ();
             MostraArgomenti ();
+            MostraRisorseDisponibili ();
             break;
         default:
             std :: cout << "Nessun menu disponibile per questo utente" << std :: endl;

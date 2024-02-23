@@ -10,7 +10,7 @@ bool RimuoviArgomenti () {
     std :: cout << "Inserisci il nome del argomento che vuoi rimuovere" << std :: endl;
     std :: cin >> argomento;
 
-    std::cout << "Sei sicuro di cancellare l'argomento? s==si, n==no";
+    std::cout << "Sei sicuro di cancellare l'argomento? s==si, n==no" << std :: endl;
     char risposta;
     std::cin >> risposta;
     if (risposta != 's') {

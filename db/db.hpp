@@ -12,10 +12,19 @@ struct CorsoArgomento {
 
 typedef struct CorsoArgomento CorsoArgomento;
 
+struct RisorseArgomento {
+        std :: string Argomento;
+        std :: string tipologia;
+};
+
+typedef struct RisorseArgomento RisorseArgomento;
+
 
 sqlite3* GetConnessione(std :: string nome_db);
 void ChiudiConnessione (sqlite3* connessione);
 
-std::list<CorsoArgomento>  OttieniMaterieFacoltativeByMatricola();
+std::list<CorsoArgomento> OttieniMaterieFacoltativeByMatricola();
+
+std::list<RisorseArgomento> OttieniRisorseDisponibiliByMatricola();
 
 #endif // DB_HPP_INCLUDE
